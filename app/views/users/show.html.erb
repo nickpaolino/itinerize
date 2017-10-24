@@ -1,8 +1,18 @@
-<h1>Hi, <%= @user.username %></h1>
-<%= form_tag ({controller: 'sessions', action: 'destroy', method: 'post'}) do %>
-  <input type=submit value='logout'>
-<% end %>
+<h1>Hi, <%= @user.username.titlecase %></h1>
+
+<%= link_to "Create New Outing", new_outing_path %>
 
 <br><br>
 
-<%= link_to "Create New Outing", new_outing_path %>
+<h2>Your Outings</h2>
+<ul>
+  <% @user.outings.each do |outing| %>
+    <%= link_to outing.name, outing_path(outing) %>
+  <% end %>
+</ul>
+
+<br>
+
+<%= form_tag ({controller: 'sessions', action: 'destroy', method: 'post'}) do %>
+  <input type=submit value='logout'>
+<% end %>
