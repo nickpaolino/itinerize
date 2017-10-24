@@ -10,6 +10,10 @@ class OutingsController < ApplicationController
   def create
     @outing = Outing.new(outing_params)
 
+    user = User.find(params[:outing][:user_id])
+
+    @outing.users << user
+
     @outing.save
 
     redirect_to outing_path(@outing)
