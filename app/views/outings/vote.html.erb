@@ -1,0 +1,16 @@
+<h1><%= @outing.name %></h1>
+
+<div>
+    <% @suggestions.each do |suggestion| %>
+        <%= suggestion.name %><br>
+        <%= suggestion.address %><br>
+        <%= form_for suggestion do |f| %>
+            <%= f.submit "+" %>
+        <% end %>
+        <%= form_for suggestion do |f| %>
+            <%= f.submit "-" %>
+        <% end %>
+        <p>Likes: <%= suggestion.likes.count %></p>
+        <br><br>
+    <% end %>
+</div>

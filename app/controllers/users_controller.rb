@@ -14,7 +14,6 @@ class UsersController < ApplicationController
   def show # This is the first page a logged in user sees
     # It's essentially the user profile page
     require_logged_in # Requires that the users logged in
-    
   end
 
   private

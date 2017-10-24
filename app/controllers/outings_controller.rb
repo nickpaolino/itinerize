@@ -23,10 +23,10 @@ class OutingsController < ApplicationController
     @outing = Outing.find(params[:id])
 
     @user = User.find(session[:user_id])
-
     if session[@user.username][@outing.id.to_s]
       redirect_to invite_path(@outing) if session[@user.username][@outing.id.to_s] == "invite"
       redirect_to suggest_path(@outing) if session[@user.username][@outing.id.to_s] == "suggest"    
+      redirect_to vote_path(@outing) if session[@user.username][@outing.id.to_s] == "vote"
     else
       redirect_to invite_path(@outing)
     end
@@ -36,7 +36,7 @@ class OutingsController < ApplicationController
     @outing = Outing.find(params[:id])
 
     # Filters out the current user and creates a list of users for the show page
-    
+
     # @users = User.all.select {|user| user.id != session[:user_id]}
 
     @users = User.all.select {|user| !@outing.users.include?(user)}
@@ -51,6 +51,27 @@ class OutingsController < ApplicationController
 
     # This only sets the outing_id state to submissions if that cookie hasn't already been set up
     session[@user.username][@outing.id] ||= "invite"
+  end
+
+  def send_invites
+    # Assigns the users chosen to the outing
+    @outing = Outing.find(params[:id])
+
+    @outing.user_ids = params[:outing][:user_ids]
+
+    @user = User.find(session[:user_id])
+
+    @outing.save
+    
+    @user.save
+
+    @outing.users << @user
+
+    @outing.save
+
+    session[@user.username][@outing.id] = "suggest"
+
+    redirect_to outing_path(@outing)
   end
 
   def suggest
@@ -89,21 +110,9 @@ class OutingsController < ApplicationController
     redirect_to outing_path(@outing)
   end
 
-  def send_invites
-    # Assigns the users chosen to the outing
+  def vote
     @outing = Outing.find(params[:id])
-
-    @outing.user_ids = params[:outing][:user_ids]
-
-    @user = User.find(session[:user_id])
-
-    @outing.users << @user
-
-    @outing.save
-
-    session[@user.username][@outing.id] = "suggest"
-
-    redirect_to outing_path(@outing)
+    @suggestions = @outing.suggestions
   end
 
   private
