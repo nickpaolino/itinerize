@@ -3,10 +3,12 @@ class OutingsController < ApplicationController
 
   def new
     @outing = Outing.new # Instantiate a new outing object for the form_for on the new page
+
+    @user = User.find(session[:user_id])
   end
 
   def create
-    
+    byebug
   end
 
   def show
