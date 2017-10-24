@@ -9,4 +9,7 @@ Rails.application.routes.draw do
   post '/logout' => 'sessions#destroy'
 
   root 'users#show'
+
+  get '/outings/:id/invite', to: 'outings#invite', as: 'invite'
+  post '/outings/:id/invite', to: 'outings#send_invites'
 end

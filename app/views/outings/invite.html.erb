@@ -1,0 +1,9 @@
+<%= form_tag invite_path(@outing) do %>
+  <label>Invite Friends:</label><br>
+  <% @users.each do |user| %>
+    <label><%= user.username %></label>
+    <%= check_box_tag :'outing[user_ids][]', user.id %>
+  <% end %>
+  <br>
+  <%= submit_tag "Submit Post" %>
+<% end %>
