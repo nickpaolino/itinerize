@@ -1,4 +1,4 @@
-<%# render 'suggest' if @outing.state = suggest %>
+<%= render 'submissions' if session[:user_states][@outing.id] == "submissions" %>
 <%# render 'vote' if @outing.state = vote %>
 <%# render 'results' if @outing.state = results %>
 

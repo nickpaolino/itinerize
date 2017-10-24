@@ -22,6 +22,15 @@ class OutingsController < ApplicationController
   def show
     @outing = Outing.find(params[:id])
 
+    # Creates the cookie hash if it doesn't already exist
+    session[:user_states] ||= {}
+
+    # Creates a hash that records the state for each user's outings so it knows if the user already
+    # submitted, voted, or if the user is viewing voting results
+
+    # This only sets the outing_id state to submissions if that cookie hasn't already been set up
+    session[:user_states][@outing.id] ||= "submissions"
+
     @user = User.find(session[:user_id])
 
     # Filters out the current user and creates a list of users for the create new outing page
