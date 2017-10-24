@@ -10,9 +10,9 @@ class OutingsController < ApplicationController
   def create
     @outing = Outing.new(outing_params)
 
-    user = User.find(params[:outing][:user_id])
+    @user = User.find(params[:outing][:user_id])
 
-    @outing.users << user
+    @outing.users << @user
 
     @outing.save
 
@@ -22,27 +22,35 @@ class OutingsController < ApplicationController
   def show
     @outing = Outing.find(params[:id])
 
-    redirect_to invite_path(@outing) if session[:user_states][@outing.id.to_s] == "invite"
-    redirect_to suggest_path(@outing) if session[:user_states][@outing.id.to_s] == "suggest"    
+    @user = User.find(session[:user_id])
+
+    if session[@user.username][@outing.id.to_s]
+      redirect_to invite_path(@outing) if session[@user.username][@outing.id.to_s] == "invite"
+      redirect_to suggest_path(@outing) if session[@user.username][@outing.id.to_s] == "suggest"    
+    else
+      redirect_to invite_path(@outing)
+    end
   end
 
   def invite
     @outing = Outing.find(params[:id])
 
     # Filters out the current user and creates a list of users for the show page
-    @users = User.all.select {|user| user.id != session[:user_id]}
-    # @users = User.all.select {|user| user.id != session[:user_id]}.map {|user| [user.username, user.id]}
+    
+    # @users = User.all.select {|user| user.id != session[:user_id]}
+
+    @users = User.all.select {|user| !@outing.users.include?(user)}
 
     @user = User.find(session[:user_id])
 
     # Creates the cookie hash if it doesn't already exist
-    session[:user_states] ||= {}
+    session[@user.username] ||= {}
 
     # Creates a hash that records the state for each user's outings so it knows if the user already
     # submitted, voted, or if the user is viewing voting results
 
     # This only sets the outing_id state to submissions if that cookie hasn't already been set up
-    session[:user_states][@outing.id] ||= "invite"
+    session[@user.username][@outing.id] ||= "invite"
   end
 
   def suggest
@@ -71,19 +79,29 @@ class OutingsController < ApplicationController
     redirect_to suggest_path(@outing)
   end
 
+  def submit_suggestions
+    @outing = Outing.find(params[:id])
+
+    @user = User.find(session[:user_id])
+
+    session[@user.username][@outing.id] = "vote"
+
+    redirect_to outing_path(@outing)
+  end
+
   def send_invites
     # Assigns the users chosen to the outing
     @outing = Outing.find(params[:id])
 
     @outing.user_ids = params[:outing][:user_ids]
 
-    user = User.find(session[:user_id])
+    @user = User.find(session[:user_id])
 
-    @outing.users << user
+    @outing.users << @user
 
     @outing.save
 
-    session[:user_states][@outing.id] = "suggest"
+    session[@user.username][@outing.id] = "suggest"
 
     redirect_to outing_path(@outing)
   end
