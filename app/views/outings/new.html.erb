@@ -1,0 +1,11 @@
+<h4>Create a New Outing</h4>
+
+<%= form_for @outing do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %><br><br>
+  <%= f.label :event_start %>
+  <%= f.datetime_select :event_start, :default => { :hour => 23, :minute => 59 } %><br><br>
+  <%= f.label :voting_deadline %>
+  <%= f.datetime_select :voting_deadline, :default => { :hour => 23, :minute => 59 } %><br><br>
+  <%= f.submit %>
+<% end %>
