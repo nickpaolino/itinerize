@@ -23,9 +23,12 @@ class OutingsController < ApplicationController
     @outing = Outing.find(params[:id])
 
     @user = User.find(session[:user_id])
+
+    return redirect_to invite_path(@outing) if session[@user.username] == nil
+
     if session[@user.username][@outing.id.to_s]
       redirect_to invite_path(@outing) if session[@user.username][@outing.id.to_s] == "invite"
-      redirect_to suggest_path(@outing) if session[@user.username][@outing.id.to_s] == "suggest"    
+      redirect_to suggest_path(@outing) if session[@user.username][@outing.id.to_s] == "suggest"
       redirect_to vote_path(@outing) if session[@user.username][@outing.id.to_s] == "vote"
     else
       redirect_to invite_path(@outing)
@@ -57,17 +60,20 @@ class OutingsController < ApplicationController
     # Assigns the users chosen to the outing
     @outing = Outing.find(params[:id])
 
-    @outing.user_ids = params[:outing][:user_ids]
+    users = params[:outing][:user_ids].map {|user_id| User.find(user_id)}
+
+    users.each do |user|
+      @outing.users << user
+    end
+
+    # @outing.user_ids = params[:outing][:user_ids]
 
     @user = User.find(session[:user_id])
 
+
     @outing.save
-    
+
     @user.save
-
-    @outing.users << @user
-
-    @outing.save
 
     session[@user.username][@outing.id] = "suggest"
 
@@ -96,7 +102,7 @@ class OutingsController < ApplicationController
     @suggestion.save
 
     @outing.save
-    
+
     redirect_to suggest_path(@outing)
   end
 
