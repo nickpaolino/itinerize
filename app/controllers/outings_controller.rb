@@ -70,7 +70,6 @@ class OutingsController < ApplicationController
 
     @user = User.find(session[:user_id])
 
-
     @outing.save
 
     @user.save
@@ -119,6 +118,8 @@ class OutingsController < ApplicationController
   def vote
     @outing = Outing.find(params[:id])
     @suggestions = @outing.suggestions
+    # Sets the user's likes
+    @user_likes = Like.all.select {|like| like.user.id == session[:user_id]}
   end
 
   private

@@ -6,10 +6,9 @@ class SuggestionsController < ApplicationController
             like.save
         end
         if params[:commit] == "-"
-            user_likes = @suggestion.likes {|like| like.user == session[:user_id]}
+            user_likes = @suggestion.likes.select {|like| like.user.id == session[:user_id]}
             user_likes.last.delete if user_likes.count > 0
         end
-
         redirect_to outing_path(@suggestion.outing)
     end
 end

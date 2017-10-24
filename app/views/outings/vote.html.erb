@@ -10,7 +10,8 @@
         <%= form_for suggestion do |f| %>
             <%= f.submit "-" %>
         <% end %>
-        <p>Likes: <%= suggestion.likes.count %></p>
+        <p>Total Likes: <%= suggestion.likes.count %></p>
+        <p>Your Likes: <%= @user_likes.select{|like| like.suggestion == suggestion}.count %></p>
         <br><br>
     <% end %>
 </div>
