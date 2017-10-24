@@ -19,6 +19,13 @@ class OutingsController < ApplicationController
     redirect_to invite_path(@outing)
   end
 
+  def show
+    @outing = Outing.find(params[:id])
+
+    redirect_to invite_path(@outing) if session[:user_states][@outing.id.to_s] == "invite"
+    redirect_to suggest_path(@outing) if session[:user_states][@outing.id.to_s] == "suggest"    
+  end
+
   def invite
     @outing = Outing.find(params[:id])
 
@@ -38,6 +45,32 @@ class OutingsController < ApplicationController
     session[:user_states][@outing.id] ||= "invite"
   end
 
+  def suggest
+    @outing = Outing.find(params[:id])
+
+    @user_suggestions = @outing.suggestions.select{|suggestion| suggestion.user.id == session[:user_id] }
+
+    @suggestion = @outing.suggestions.build
+
+  end
+
+  def post_suggestion
+    @suggestion = Suggestion.new(suggestion_params)
+    @suggestion.user = User.find(session[:user_id])
+
+    @outing = Outing.find(params[:id])
+
+    @suggestion.outing = @outing
+
+    @outing.suggestions << @suggestion
+
+    @suggestion.save
+
+    @outing.save
+    
+    redirect_to suggest_path(@outing)
+  end
+
   def send_invites
     # Assigns the users chosen to the outing
     @outing = Outing.find(params[:id])
@@ -55,16 +88,13 @@ class OutingsController < ApplicationController
     redirect_to outing_path(@outing)
   end
 
-  def show
-    @outing = Outing.find(params[:id])
-
-    redirect_to invite_path(@outing) if session[:user_states][@outing.id.to_s] == "invite"
-    render :show if session[:user_states][@outing.id.to_s] == "suggest"
-  end
-
   private
 
   def outing_params
     params.require(:outing).permit(:name, :event_start, :voting_deadline)
+  end
+
+  def suggestion_params
+    params.require(:suggestion).permit(:name, :address, :specific)
   end
 end

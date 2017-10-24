@@ -1,0 +1,34 @@
+<h1><%= @outing.name %></h1>
+<br>
+<div>
+    <% @outing.users.each do |user| %>
+        <%= user.username %>
+    <% end %>
+</div>
+
+<br>
+
+<%= form_for @suggestion, url: post_suggestion_path , method: :post do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+
+    <%= f.label :address %>
+    <%= f.text_field :address %>
+
+    <%= f.label :specific %>
+    <%= f.check_box :specific %>
+
+    <%= f.submit %>
+<% end %>
+
+<br>
+
+<div>
+    Your Suggestions
+    <ul>
+        <% @user_suggestions.each do |suggestion| %>
+            <li><%= suggestion.name %><br><%= suggestion.address %><br><br></li>
+        <% end %>
+    </ul>
+</div>
+

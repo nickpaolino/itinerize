@@ -12,4 +12,8 @@ Rails.application.routes.draw do
 
   get '/outings/:id/invite', to: 'outings#invite', as: 'invite'
   post '/outings/:id/invite', to: 'outings#send_invites'
+
+  get '/outings/:id/suggest', to:'outings#suggest', as: 'suggest'
+  post '/outings/:id/suggest', to:'outings#post_suggestion', as: 'post_suggestion'
+  
 end
