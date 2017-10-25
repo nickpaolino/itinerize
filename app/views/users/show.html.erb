@@ -5,11 +5,12 @@
 <br><br>
 
 <h2>Your Outings</h2>
-<ul>
+
+<div class="vertical-menu">
   <% @user.outings.each do |outing| %>
     <%= link_to outing.name, outing_path(outing) %>
   <% end %>
-</ul>
+</div>
 
 <br>
 
