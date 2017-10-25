@@ -5,7 +5,7 @@
   <%= f.text_field :name %><br><br>
   <%= f.hidden_field :user_id, :value => @user.id %>
   <%= f.label :event_start %>
-  <%= f.datetime_field :event_start %><br><br>
+  <%= f.datetime_field(:event_start, {:class => 'datepicker'}) %><br><br>
   <%= f.label :voting_deadline %>
   <%= f.datetime_field :voting_deadline %><br><br>
   <%= f.submit %>
@@ -14,3 +14,7 @@
 <br><br>
 
 <%= link_to "Your Profile", user_path(@user) %>
+
+
+
+  <input type="text" class="datepicker">
