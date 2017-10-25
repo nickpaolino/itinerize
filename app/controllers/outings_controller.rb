@@ -1,151 +1,121 @@
 class OutingsController < ApplicationController
   before_action :require_logged_in
+  before_action :redirect_user_to_profile
+  skip_before_action :redirect_user_to_profile, only: [:new, :index, :create]
+  before_action :create_user_session
 
   def new
     @outing = Outing.new # Instantiate a new outing object for the form_for on the new page
 
-    @user = User.find(session[:user_id])
+    @user = current_user
   end
 
   def create
     @outing = Outing.new(outing_params)
 
-    @user = User.find(params[:outing][:user_id])
-
-    @outing.users << @user
+    @outing.users << current_user
 
     @outing.save
 
-    redirect_to invite_path(@outing)
+    redirect_to outing_path(@outing) # Redirects to the outing show page
   end
 
   def show
-    voting_over?
+    check_if_voting_is_over
 
-    @outing = Outing.find(params[:id])
-
-    @user = User.find(session[:user_id])
-
-    return redirect_to invite_path(@outing) if session[@user.username] == nil
-
-    if session[@user.username][@outing.id.to_s]
-      redirect_to invite_path(@outing) if session[@user.username][@outing.id.to_s] == "invite"
-      redirect_to suggest_path(@outing) if session[@user.username][@outing.id.to_s] == "suggest"
-      redirect_to vote_path(@outing) if session[@user.username][@outing.id.to_s] == "vote"
-      redirect_to result_path(@outing) if session[@user.username][@outing.id.to_s] == "result"
+    case current_stage
+    when "invite"
+      redirect_to invite_path(current_outing)
+    when "suggest"
+      redirect_to suggest_path(current_outing)
+    when "vote"
+      redirect_to vote_path(current_outing)
+    when "result"
+      redirect_to result_path(current_outing)
     else
-      redirect_to invite_path(@outing)
+      # This means that the user has just created their outing and so their user_session is blank
+      redirect_to invite_path(current_outing)
     end
   end
 
   def invite
-    voting_over?
-    @outing = Outing.find(params[:id])
-    return redirect_to result_path(@outing) if session[@user.username][@outing.id.to_s] == "result"
+    redirect_if_voting_over
 
-    # Filters out the current user and creates a list of users for the show page
+    @outing = current_outing
 
-    # @users = User.all.select {|user| user.id != session[:user_id]}
-
+    # Filters out the current user and all users already part of the outing and creates a list of users for the show page
     @users = User.all.select {|user| !@outing.users.include?(user)}
 
-    @user = User.find(session[:user_id])
-
-    # Creates the cookie hash if it doesn't already exist
-    session[@user.username] ||= {}
-
-    # Creates a hash that records the state for each user's outings so it knows if the user already
-    # submitted, voted, or if the user is viewing voting results
-
-    # This only sets the outing_id state to submissions if that cookie hasn't already been set up
-    session[@user.username][@outing.id] ||= "invite"
+    # This only sets the outing_id state to invite if that cookie hasn't already been set up
+    session[current_user.username][@outing.id] ||= "invite"
   end
 
   def send_invites
     # Assigns the users chosen to the outing
-    @outing = Outing.find(params[:id])
-
     users = params[:outing][:user_ids].map {|user_id| User.find(user_id)}
 
     users.each do |user|
-      @outing.users << user
+      current_outing.users << user
     end
 
-    # @outing.user_ids = params[:outing][:user_ids]
+    current_outing.save
 
-    @user = User.find(session[:user_id])
+    set_session("suggest")
 
-    @outing.save
-
-    @user.save
-
-    session[@user.username][@outing.id] = "suggest"
-
-    redirect_to outing_path(@outing)
+    redirect_to outing_path(current_outing)
 
   end
 
   def suggest
-    voting_over?
-    @outing = Outing.find(params[:id])
-    return redirect_to result_path(@outing) if session[@user.username][@outing.id.to_s] == "result"
+    redirect_if_voting_over
 
-    session[@user.username][@outing.id] = "suggest"
+    @outing = current_outing
+
+    set_session("suggest")
 
     @user_suggestions = @outing.suggestions.select{|suggestion| suggestion.user.id == session[:user_id] }
 
     @suggestion = @outing.suggestions.build
-
   end
 
   def post_suggestion
-    @suggestion = Suggestion.new(suggestion_params)
-    @suggestion.user = User.find(session[:user_id])
+    suggestion = Suggestion.new(suggestion_params)
 
-    @outing = Outing.find(params[:id])
+    suggestion.user = current_user
 
-    @suggestion.outing = @outing
+    current_outing.suggestions << suggestion
 
-    @outing.suggestions << @suggestion
+    suggestion.save
 
-    @suggestion.save
+    current_outing.save
 
-    @outing.save
-
-    redirect_to suggest_path(@outing)
+    redirect_to suggest_path(current_outing)
   end
 
   def submit_suggestions
-    @outing = Outing.find(params[:id])
+    set_session("vote")
 
-    @user = User.find(session[:user_id])
-
-    session[@user.username][@outing.id] = "vote"
-
-    redirect_to outing_path(@outing)
+    redirect_to outing_path(current_outing)
   end
 
   def vote
-    voting_over?
-    @outing = Outing.find(params[:id])
-    return redirect_to result_path(@outing) if session[@user.username][@outing.id.to_s] == "result"
+    redirect_if_voting_over
+
+    @outing = current_outing
     @suggestions = @outing.suggestions
+
     # Sets the user's likes
     @user_likes = Like.all.select {|like| like.user.id == session[:user_id]}
-    @total_suggestions = @outing.suggestions.count
-    @used_likes = @user.likes.select{ |like| like.suggestion.outing == @outing}.count
-    @remaining_likes = @total_suggestions - @used_likes
-  end
 
-  def voting_over?
-    @outing = Outing.find(params[:id])
-    if @outing.voting_over?
-      session[@user.username][@outing.id.to_s] = "result"
-    end
+    @total_suggestions = @outing.suggestions.count
+
+    used_likes = current_user.likes.select{ |like| like.suggestion.outing == @outing}.count
+
+    @remaining_likes = @total_suggestions - used_likes
   end
 
   def result
-    @outing = Outing.find(params[:id])
+    @outing = current_outing
     # Takes the top three suggestions with the highest like count
     @top_suggestions = @outing.suggestions.sort_by {|suggestion| suggestion.likes.count}.reverse[0..2]
     # results page
@@ -161,6 +131,15 @@ class OutingsController < ApplicationController
     end
   end
 
+  def redirect_user_to_profile
+    return redirect_to user_path(current_user) if !current_outing.users.include?(current_user)
+  end
+
+  def index
+    # outings index redirects to the user show page
+    redirect_to user_path(current_user)
+  end
+
   private
 
   def outing_params
@@ -169,5 +148,47 @@ class OutingsController < ApplicationController
 
   def suggestion_params
     params.require(:suggestion).permit(:name, :address, :specific)
+  end
+
+  def current_user
+    User.find(session[:user_id])
+  end
+
+  def current_outing
+    Outing.find(params[:id])
+  end
+
+  def create_user_session
+    # Creates a hash that records the state for each user's outings so it knows if the user already
+    # submitted, voted, or if the user is viewing voting results
+    session[current_user.username] ||= {}
+  end
+
+  def set_session(stage)
+    session[current_user.username][current_outing.id] = stage
+  end
+
+  def session_exists?
+    session[current_user.username]
+  end
+
+  def current_stage
+    session[current_user.username][current_outing.id.to_s]
+  end
+
+  def current_session?(stage)
+    session[current_user.username][current_outing.id.to_s] == stage
+  end
+
+  def check_if_voting_is_over # Sets the user's outing session to result if the voting is over
+    if current_outing.voting_over?
+      session[current_user.username][current_outing.id.to_s] = "result"
+    end
+  end
+
+  def redirect_if_voting_over
+    check_if_voting_is_over
+
+    redirect_to result_path(@outing) if current_session?("result")
   end
 end

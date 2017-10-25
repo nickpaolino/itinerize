@@ -1,4 +1,4 @@
-<h4>Results are in!</h4>
+<h4>Results are in for <%= @outing.name %>!</h4>
 <% @top_suggestions.each_with_index do |suggestion, index| %>
   <h4><%="#{index + 1}. #{suggestion.name}" %><br></h4>
   <p><%="Number of Likes: #{suggestion.likes.count}" %></p>

@@ -3,7 +3,6 @@
 <%= form_for @outing do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %><br><br>
-  <%= f.hidden_field :user_id, :value => @user.id %>
   <%= f.label :event_start %>
   <%= f.datetime_field :event_start %><br><br>
   <%= f.label :voting_deadline %>
