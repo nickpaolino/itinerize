@@ -15,7 +15,8 @@ class OutingsController < ApplicationController
 
     @outing.users << current_user
 
-    @outing.save
+    # Refreshes new page if info isn't filled out
+    return redirect_to new_outing_path if !@outing.save
 
     redirect_to outing_path(@outing) # Redirects to the outing show page
   end

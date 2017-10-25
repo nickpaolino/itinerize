@@ -4,6 +4,8 @@ class Outing < ApplicationRecord
   has_many :users, through: :user_outings
 
   validates :name, presence: true
+  validates :voting_deadline, presence: true
+  validates :event_start, presence: true
 
   def timer_formatted
     time = time_left.abs
