@@ -138,7 +138,20 @@ class OutingsController < ApplicationController
   end
 
   def result
+    @outing = Outing.find(params[:id])
+    # Takes the top three suggestions with the highest like count
+    @top_suggestions = @outing.suggestions.sort_by {|suggestion| suggestion.likes.count}.reverse[0..2]
     # results page
+    @likes_hash = {}
+    @top_suggestions.each do |suggestion|
+      @likes_hash[suggestion.name] ||= {}
+
+      suggestion.likes.each do |like|
+        @likes_hash[suggestion.name][like.user.username] ||= 0
+        @likes_hash[suggestion.name][like.user.username] += 1
+      end
+
+    end
   end
 
   private
