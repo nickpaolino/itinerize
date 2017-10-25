@@ -125,6 +125,9 @@ class OutingsController < ApplicationController
     @suggestions = @outing.suggestions
     # Sets the user's likes
     @user_likes = Like.all.select {|like| like.user.id == session[:user_id]}
+    @total_suggestions = @outing.suggestions.count
+    @used_likes = @user.likes.select{ |like| like.suggestion.outing == @outing}.count
+    @remaining_likes = @total_suggestions - @used_likes
   end
 
   def voting_over?

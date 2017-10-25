@@ -1,11 +1,14 @@
 <h1><%= @outing.name %></h1>
 <h4>Event Start: <%= @outing.event_start.strftime("%B %d, %Y at %I:%M%p") %></h4>
 <h4>Time Left to Vote: <%= @outing.timer_formatted %></h4>
+<h4>Your Remaining Votes: <%= @remaining_likes %></h4>   
 <div>
     <% @suggestions.each do |suggestion| %>
         <%= suggestion.name %><br>
         <%= suggestion.address %><br>
         <%= form_for suggestion do |f| %>
+            <%= f.hidden_field :remaining_likes, value: @remaining_likes %>
+            <%= f.hidden_field :outing_id, value: @outing.id %>
             <%= f.submit "+" %>
         <% end %>
         <%= form_for suggestion do |f| %>
