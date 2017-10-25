@@ -20,6 +20,8 @@ class OutingsController < ApplicationController
   end
 
   def show
+    voting_over?
+
     @outing = Outing.find(params[:id])
 
     @user = User.find(session[:user_id])
@@ -30,6 +32,7 @@ class OutingsController < ApplicationController
       redirect_to invite_path(@outing) if session[@user.username][@outing.id.to_s] == "invite"
       redirect_to suggest_path(@outing) if session[@user.username][@outing.id.to_s] == "suggest"
       redirect_to vote_path(@outing) if session[@user.username][@outing.id.to_s] == "vote"
+      redirect_to result_path(@outing) if session[@user.username][@outing.id.to_s] == "result"
     else
       redirect_to invite_path(@outing)
     end
@@ -116,10 +119,23 @@ class OutingsController < ApplicationController
   end
 
   def vote
+    voting_over?
     @outing = Outing.find(params[:id])
+    return redirect_to result_path(@outing) if session[@user.username][@outing.id.to_s] == "result"
     @suggestions = @outing.suggestions
     # Sets the user's likes
     @user_likes = Like.all.select {|like| like.user.id == session[:user_id]}
+  end
+
+  def voting_over?
+    @outing = Outing.find(params[:id])
+    if @outing.voting_over?
+      session[@user.username][@outing.id.to_s] = "result"
+    end
+  end
+
+  def result
+    # results page
   end
 
   private

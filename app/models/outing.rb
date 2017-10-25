@@ -19,6 +19,6 @@ class Outing < ApplicationRecord
   private
 
   def time_left
-    time = (self.voting_deadline - Time.now).to_i
+    (self.voting_deadline - Time.now).to_i
   end
 end

@@ -18,5 +18,7 @@ Rails.application.routes.draw do
   post '/outings/:id/submit', to:'outings#submit_suggestions', as: 'submit_suggestions'
 
   get '/outings/:id/vote', to:'outings#vote', as: 'vote'
-  
+
+  get '/outings/:id/result', to:'outings#result', as: 'result'
+
 end
