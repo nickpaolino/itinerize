@@ -189,6 +189,6 @@ class OutingsController < ApplicationController
   def redirect_if_voting_over
     check_if_voting_is_over
 
-    redirect_to result_path(@outing) if current_session?("result")
+    redirect_to result_path(current_outing) if current_session?("result")
   end
 end
