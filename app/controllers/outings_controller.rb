@@ -80,6 +80,7 @@ class OutingsController < ApplicationController
     session[@user.username][@outing.id] = "suggest"
 
     redirect_to outing_path(@outing)
+    
   end
 
   def suggest
