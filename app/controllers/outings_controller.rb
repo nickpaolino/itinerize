@@ -39,7 +39,9 @@ class OutingsController < ApplicationController
   end
 
   def invite
+    voting_over?
     @outing = Outing.find(params[:id])
+    return redirect_to result_path(@outing) if session[@user.username][@outing.id.to_s] == "result"
 
     # Filters out the current user and creates a list of users for the show page
 
@@ -80,11 +82,13 @@ class OutingsController < ApplicationController
     session[@user.username][@outing.id] = "suggest"
 
     redirect_to outing_path(@outing)
-    
+
   end
 
   def suggest
+    voting_over?
     @outing = Outing.find(params[:id])
+    return redirect_to result_path(@outing) if session[@user.username][@outing.id.to_s] == "result"
 
     session[@user.username][@outing.id] = "suggest"
 
