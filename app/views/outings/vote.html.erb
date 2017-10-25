@@ -1,6 +1,6 @@
 <h1><%= @outing.name %></h1>
 <h4>Event Start: <%= @outing.event_start.strftime("%B %d, %Y at %I:%M%p") %></h4>
-<h4>Time Left to Vote: <%= @outing.time_left %></h4>
+<h4>Time Left to Vote: <%= @outing.timer_formatted %></h4>
 <div>
     <% @suggestions.each do |suggestion| %>
         <%= suggestion.name %><br>
