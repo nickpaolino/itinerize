@@ -71,6 +71,8 @@ class OutingsController < ApplicationController
 
     @outing = current_outing
 
+    @user = current_user
+
     set_session("suggest")
 
     @user_suggestions = @outing.suggestions.select{|suggestion| suggestion.user.id == session[:user_id] }
@@ -109,6 +111,8 @@ class OutingsController < ApplicationController
 
     @total_suggestions = @outing.suggestions.count
 
+    @user = current_user
+
     used_likes = current_user.likes.select{ |like| like.suggestion.outing == @outing}.count
 
     @remaining_likes = @total_suggestions - used_likes
@@ -116,6 +120,7 @@ class OutingsController < ApplicationController
 
   def result
     @outing = current_outing
+    @user = current_user
     # Takes the top three suggestions with the highest like count
     @top_suggestions = @outing.suggestions.sort_by {|suggestion| suggestion.likes.count}.reverse[0..2]
     # results page
