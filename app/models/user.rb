@@ -5,4 +5,7 @@ class User < ApplicationRecord
   has_many :outings, through: :user_outings
 
   has_secure_password
+
+  validates :username, presence: true
+  validates :username, uniqueness: true
 end

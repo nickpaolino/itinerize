@@ -3,6 +3,8 @@ class Outing < ApplicationRecord
   has_many :user_outings
   has_many :users, through: :user_outings
 
+  validates :name, presence: true
+
   def timer_formatted
     time = time_left.abs
     hours = time / 3600
