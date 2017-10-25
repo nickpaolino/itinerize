@@ -1,7 +1,7 @@
 <h1><%= @outing.name %></h1>
 <h4>Event Start: <%= @outing.event_start.strftime("%B %d, %Y at %I:%M%p") %></h4>
 <h4>Time Left to Vote: <%= @outing.timer_formatted %></h4>
-<h4>Your Remaining Votes: <%= @remaining_likes %></h4>   
+<h4>Your Remaining Votes: <%= @remaining_likes %></h4>
 <div>
     <% @suggestions.each do |suggestion| %>
         <%= suggestion.name %><br>
@@ -19,3 +19,4 @@
         <br><br>
     <% end %>
 </div>
+<%= link_to "Suggest More Places", suggest_path(@outing) %>
