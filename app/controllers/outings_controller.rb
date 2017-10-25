@@ -85,6 +85,8 @@ class OutingsController < ApplicationController
   def suggest
     @outing = Outing.find(params[:id])
 
+    session[@user.username][@outing.id] = "suggest"
+
     @user_suggestions = @outing.suggestions.select{|suggestion| suggestion.user.id == session[:user_id] }
 
     @suggestion = @outing.suggestions.build
