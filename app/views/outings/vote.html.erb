@@ -16,7 +16,7 @@
         <% end %>
         <p>Total Likes: <%= suggestion.likes.count %></p>
         <p>Your Likes: <%= @user_likes.select{|like| like.suggestion == suggestion}.count %></p>
-        <br><br>
+        <br><br></td>
     <% end %>
 </div>
 <%= link_to "Suggest More Places", suggest_path(@outing) %>

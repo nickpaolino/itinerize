@@ -7,9 +7,7 @@
   <%= f.datetime_field(:event_start, {:class => 'datepicker'}) %><br><br>
   <%= f.label :voting_deadline %>
   <%= f.datetime_field :voting_deadline %><br><br>
-  <%= f.submit %>
+  <%= f.submit class: 'waves-effect waves-light btn' %>
 <% end %>
-
 <br><br>
-
 <%= link_to "Your Profile", user_path(@user) %>
