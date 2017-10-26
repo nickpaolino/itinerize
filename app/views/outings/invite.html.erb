@@ -3,6 +3,9 @@
   <a href="/outings">Your Outings</a>
   <a href="/outings/new">New Outing</a>
   <a href="/logout">Log Out</a>
+  <div class="right">
+    <a href="#">revelize</a>
+  </div>
 </div>
 
 <br><br>
@@ -15,10 +18,7 @@
     <%= check_box_tag :'outing[user_ids][]', user.id %>
   <% end %>
   <br><br>
-  <%= submit_tag "Invite" %>
+  <button type="submit" class="button" style="vertical-align:middle"><span>Invite</span></button>
+  <button type="submit" class="button" style="vertical-align:middle"><span>Skip</span></button>
 <% end %>
 </div>
-
-<br>
-
-<%= link_to "Skip to Suggest", suggest_path(@outing) %>

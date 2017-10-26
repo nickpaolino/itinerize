@@ -96,6 +96,7 @@ td.description {
   vertical-align: top;
 }
 
+
 .login-signup-box {
     margin: auto;
     padding: auto;
@@ -106,8 +107,37 @@ td.description {
 
 .center {
     margin: auto;
-    padding: 100px;
+    padding: auto;
     text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+#landing-page-box {
+    width: 225px;
+    height: 365px;
+}
+
+#new-user-box {
+    width: 225px;
+    height: 290px;
+}
+
+#tagline {
+    margin: 20px;
+}
+
+button a {
+    text-decoration: none;
+    color: black;
+}
+
+.right {
+    text-align: right;
+    float: right;
+    padding-right: 20px;
+    font-weight: bolder;
+    font-size: 18px;
 }
 
 .button {

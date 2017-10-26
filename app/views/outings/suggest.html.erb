@@ -3,6 +3,9 @@
   <a href="/outings">Your Outings</a>
   <a href="/outings/new">New Outing</a>
   <a href="/logout">Log Out</a>
+  <div class="right">
+    <a href="#">revelize</a>
+  </div>
 </div>
 
 <br><br>
@@ -40,7 +43,7 @@
       <%= link_to user.username %>
     <% end %>
   </div><br>
-  <%= link_to "Invite More Friends", invite_path(@outing) %></td>
+  <%= link_to "Invite", invite_path(@outing), class: "link" %></td>
   </tr>
 </table>
 </div>
