@@ -4,7 +4,7 @@
   <a href="/outings/new">New Outing</a>
   <a href="/logout">Log Out</a>
   <div class="right">
-    <a href="#">revelize</a>
+    <a href="/">revelize</a>
   </div>
 </div>
 
@@ -25,7 +25,7 @@
         <% end %>
       </div></td>
   <br>
-      <td><h2>Your Completed Outings</h2>
+      <td><h2>Your Past Outings</h2>
       <div class="vertical-outing-menu">
         <% @user_finished_outings.each do |outing| %>
           <%= link_to outing.name, outing_path(outing) %>

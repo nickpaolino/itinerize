@@ -3,11 +3,11 @@
 
 
 <div class="login-signup-box" id="landing-page-box" style="margin-top: 100px;">
-  
+
   <h1>revelize</h1>
 
   <p id="tagline">the start of your next great adventure</p>
-  
+
   <%= form_for @user, url: login_path, method: :post do |f| %>
     <%= f.label :username %>
     <input type="text" name="user[username]" id="user_username" style="color: black;">
@@ -21,7 +21,7 @@
 
     <input type="submit" name="commit" value="log in" data-disable-with="log in" style="color: black;">
     <br><br>
-    
+
     <button>
       <a href="/users/new">sign up</a>
     </button>
