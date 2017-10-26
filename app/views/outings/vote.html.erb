@@ -13,21 +13,25 @@
 <h4>Time Left to Vote: <%= @outing.timer_formatted %></h4>
 <h4>Your Remaining Votes: <%= @remaining_likes %></h4>
 <div>
+  <table>
+    <tr>
     <% @suggestions.each do |suggestion| %>
         <%= suggestion.name %><br>
         <%= suggestion.address %><br>
         <%= form_for suggestion do |f| %>
             <%= f.hidden_field :remaining_likes, value: @remaining_likes %>
             <%= f.hidden_field :outing_id, value: @outing.id %>
-            <%= f.submit "+" %>
+            <%= f.submit "+", class: "like_button" %>
         <% end %>
         <%= form_for suggestion do |f| %>
-            <%= f.submit "-" %>
+            <%= f.submit "-", class: "like_button" %>
         <% end %>
         <p>Total Likes: <%= suggestion.likes.count %></p>
         <p>Your Likes: <%= @user_likes.select{|like| like.suggestion == suggestion}.count %></p>
         <br><br></td>
     <% end %>
+    </tr>
+  </table>
 </div>
-<%= link_to "Suggest More Places", suggest_path(@outing) %>
+<%= link_to "Suggest", suggest_path(@outing), class: "link" %>
 </div>

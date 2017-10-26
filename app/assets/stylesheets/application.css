@@ -2,27 +2,50 @@ body {
     font-family: "Avenir", Times, serif;
 }
 
-.vertical-menu {
+a:link    {
+  /* Applies to all unvisited links */
+  text-decoration:  none;
+  }
+
+.vertical-outing-menu {
     width: 300px;
     height: 225px;
     overflow-y: auto;
 }
 
-.vertical-menu a {
-    background-color: silver; /* Grey background color */
+.vertical-outing-menu a {
+    background-color: white; /* Grey background color */
     color: black; /* Black text color */
     display: block; /* Make the links appear below each other */
     padding: 10px; /* Add some padding */
     text-decoration: none; /* Remove underline from links */
 }
 
-.vertical-menu a:hover {
+.vertical-outing-menu a:hover {
     background-color: #ccc; /* Dark grey background on mouse-over */
 }
 
-.vertical-menu a.active {
+.vertical-outing-menu a.active {
     background-color: #4CAF50; /* Add a green color to the "active/current" link */
     color: white;
+}
+
+.vertical-friend-menu {
+    width: 200px;
+    height: 125px;
+    overflow-y: auto;
+}
+
+.vertical-friend-menu a {
+    background-color: white; /* Grey background color */
+    color: black; /* Black text color */
+    display: block; /* Make the links appear below each other */
+    padding: 10px; /* Add some padding */
+    text-decoration: none; /* Remove underline from links */
+}
+
+.vertical-friend-menu a:hover {
+    background-color: #ccc; /* Dark grey background on mouse-over */
 }
 
 #video-background {
@@ -61,15 +84,123 @@ body {
 
 table {
     border-collapse: collapse;
-    width: 60%;
+    width: 70%;
 }
 
 td, th {
     text-align: left;
     padding: 2px;
 }
+
+td.description {
+  vertical-align: top;
+}
+
 .center {
     margin: auto;
     padding: 100px;
     text-align: center;
 }
+
+.button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #333;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 18px;
+  padding: 2px;
+  width: 100px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+  font-family: "Avenir"
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\27B2';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 22px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+
+.like_button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #333;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 18px;
+  padding: 0px;
+  width: 25px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+  font-family: "Avenir"
+}
+
+.like_button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.like_button span:after {
+  content: '\27B2';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.like_button:hover span {
+  padding-right: 22px;
+}
+
+.like_button:hover {background-color: #5b5b5e}
+
+.like_button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.link {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #333;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 18px;
+  padding: 2px;
+  width: 100px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+  font-family: "Avenir"
+}
+
+.link:hover {background-color: #5b5b5e}
