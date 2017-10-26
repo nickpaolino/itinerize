@@ -1,12 +1,30 @@
-<%= form_for @user, controller: 'users', action: 'create' do |f| %>
-  <%= f.label :username %>
-  <%= f.text_field :username %>
+<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/base-min.css">
 
-  <%= f.label :password %>
-  <%= f.password_field :password %>
+<div class="login-signup-box" id="new-user-box" style="margin-top: 100px;">
+  
+  <br>
+  
+  <%= form_for @user, controller: 'users', action: 'create' do |f| %>
+    <%= f.label :username %>
+    <input type="text" name="user[username]" id="user_username" style="color: black;">
 
-  <%= f.label :password_confirmation %>
-  <%= f.password_field :password_confirmation %>
+    <br><br>
 
-  <%= f.submit "create" %>
-<% end %>
+    <%= f.label :password %>
+    <input type="password" name="user[password]" id="user_password" style="color: black;">
+
+    <br><br>
+
+    <%= f.label :password_confirmation %>
+    <input type="password" name="user[password_confirmation]" id="user_password_confirmation" style="color: black;">
+    
+    <br><br>
+
+    <input type="submit" name="commit" value="create" data-disable-with="create" style="color: black;">
+
+  <% end %>
+</div>
+
+<video autoplay loop id="video-background" muted plays-inline>
+  <source src="http://dl.dropboxusercontent.com/s/zlyj8x56bpoqccs/revelize_vid.mp4?dl=0" type="video/mp4">
+</video>

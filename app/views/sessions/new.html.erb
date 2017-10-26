@@ -2,25 +2,28 @@
 <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/base-min.css">
 
 
-<div class="center">
-  <h1 color="white">revelize</h1>
+<div class="login-signup-box" id="landing-page-box" style="margin-top: 100px;">
+  
+  <h1>revelize</h1>
+
+  <p id="tagline">the start of your next great adventure</p>
   
   <%= form_for @user, url: login_path, method: :post do |f| %>
     <%= f.label :username %>
-    <%= f.text_field :username %>
+    <input type="text" name="user[username]" id="user_username" style="color: black;">
 
     <br><br>
 
     <%= f.label :password %>
-    <%= f.password_field :password %>
+    <input type="password" name="user[password]" id="user_password" style="color: black;">
 
     <br><br>
 
-    <%= f.submit "log in" %>
+    <input type="submit" name="commit" value="log in" data-disable-with="log in" style="color: black;">
     <br><br>
     
     <button>
-      <%= link_to(controller: 'users', action: 'new') { 'sign up' } %>
+      <a href="/users/new">sign up</a>
     </button>
   <% end %>
 
