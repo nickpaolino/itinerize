@@ -135,7 +135,6 @@ class OutingsController < ApplicationController
         @likes_hash[suggestion.name][like.user.username] ||= 0
         @likes_hash[suggestion.name][like.user.username] += 1
       end
-
     end
   end
 

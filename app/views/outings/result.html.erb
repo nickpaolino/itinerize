@@ -8,16 +8,20 @@
 <br><br>
 
 <div class="main">
+<% if !@top_suggestions.empty? %>
 <h3>Results are in for <big><%= @outing.name %></big>!</h3>
 <h3>Looks like everyone's going to <big><%= @top_suggestions.first.name %></big></h3><br>
 <table align="center">
   <tr>
-<% @top_suggestions.each_with_index do |suggestion, index| %>
-  <td><h4><%="#{index + 1}. #{suggestion.name}" %></h4>
-  <p><%="Number of Likes: #{suggestion.likes.count}" %></p>
-  <% @likes_hash[suggestion.name].each do |name, number_of_likes| %>
-    <p><%= name %>: <%= number_of_likes %></p>
-  <% end %></td><br>
+  <% @top_suggestions.each_with_index do |suggestion, index| %>
+    <td><h4><%="#{index + 1}. #{suggestion.name}" %></h4>
+    <p><%="Number of Likes: #{suggestion.likes.count}" %></p>
+    <% @likes_hash[suggestion.name].each do |name, number_of_likes| %>
+      <p><%= name %>: <%= number_of_likes %></p>
+    <% end %></td><br>
+  <% end %>
+<% else %>
+  <h3>There were no suggestions for this outing!</h3><br>
 <% end %>
   </tr>
 </table>
