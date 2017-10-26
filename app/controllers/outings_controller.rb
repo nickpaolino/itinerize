@@ -154,7 +154,7 @@ class OutingsController < ApplicationController
   end
 
   def suggestion_params
-    params.require(:suggestion).permit(:name, :address, :specific)
+    params.require(:suggestion).permit(:name, :address)
   end
 
   def current_user
