@@ -18,7 +18,7 @@ class OutingsController < ApplicationController
     # Refreshes new page if info isn't filled out
     return redirect_to new_outing_path if !@outing.save
 
-    redirect_to outing_path(@outing) # Redirects to the outing show page
+    redirect_to invite_path(@outing) # Redirects to the outing show page
   end
 
   def show
