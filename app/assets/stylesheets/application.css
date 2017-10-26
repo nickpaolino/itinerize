@@ -92,36 +92,14 @@ td, th {
     padding: 2px;
 }
 
-.login-signup-box {
 td.description {
   vertical-align: top;
 }
 
 .center {
     margin: auto;
-    padding: auto;
+    padding: 100px;
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-}
-
-#landing-page-box {
-    width: 225px;
-    height: 365px;
-}
-
-#new-user-box {
-    width: 225px;
-    height: 290px;
-}
-
-#tagline {
-    margin: 20px;
-}
-
-button a {
-    text-decoration: none;
-    color: black;
 }
 
 .button {
