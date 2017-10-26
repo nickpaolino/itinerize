@@ -14,8 +14,8 @@
 <table align="center">
   <tr>
   <% @top_suggestions.each_with_index do |suggestion, index| %>
-    <td><h4><%="#{index + 1}. #{suggestion.name}" %></h4>
-    <p><%="Number of Likes: #{suggestion.likes.count}" %></p>
+    <td style="vertical-align: top;"><h4><big><%="#{index + 1}. #{suggestion.name}" %></big></h4>
+    <p><%="Number of Likes: "%><big><%="#{suggestion.likes.count}" %></big></p>
     <% @likes_hash[suggestion.name].each do |name, number_of_likes| %>
       <p><%= name %>: <%= number_of_likes %></p>
     <% end %></td><br>

@@ -9,13 +9,9 @@
 
 <div class="main">
 <h1><%= @outing.name %></h1>
-<br>
-<div>
-    <% @outing.users.each do |user| %>
-        <%= user.username %>
-    <% end %>
-</div>
-
+<table>
+  <tr>
+<td style="vertical-align: top;">
 <%= form_for @suggestion, url: post_suggestion_path , method: :post do |f| %>
     <%= f.label :name %>
     <%= f.text_field :name %>
@@ -23,11 +19,9 @@
     <%= f.label :address %>
     <%= f.text_field :address %>
 
-    <%= f.submit %>
+    <button type="submit" class="button" style="vertical-align:middle"><span>Add</span></button>
 <% end %>
-
 <br>
-
 <div>
     Your Suggestions
     <ul>
@@ -38,6 +32,15 @@
 </div>
 
 <%= form_tag submit_suggestions_path do %>
-    <%= submit_tag "Submit Suggestions" %>
-<% end %>
+    <button type="submit" class="button" style="vertical-align:middle"><span>Vote</span></button>
+<% end %></td>
+<td style="vertical-align: top;"><h4>Friends Invited: </h4>
+  <div class="vertical-friend-menu">
+    <% @outing.users.each do |user| %>
+      <%= link_to user.username %>
+    <% end %>
+  </div><br>
+  <%= link_to "Invite More Friends", invite_path(@outing) %></td>
+  </tr>
+</table>
 </div>

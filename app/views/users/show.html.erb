@@ -16,14 +16,14 @@
 <table>
   <tr>
       <td><h2>Your Active Outings</h2>
-      <div class="vertical-menu">
+      <div class="vertical-outing-menu">
         <% @user_active_outings.each do |outing| %>
           <%= link_to outing.name, outing_path(outing) %>
         <% end %>
       </div></td>
   <br>
       <td><h2>Your Completed Outings</h2>
-      <div class="vertical-menu">
+      <div class="vertical-outing-menu">
         <% @user_finished_outings.each do |outing| %>
           <%= link_to outing.name, outing_path(outing) %>
         <% end %>
