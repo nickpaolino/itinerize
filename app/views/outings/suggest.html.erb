@@ -1,5 +1,4 @@
 <div class="navbar">
-  <a href="/">Home</a>
   <a href="/outings">Your Outings</a>
   <a href="/outings/new">New Outing</a>
   <a href="/logout">Log Out</a>
@@ -39,7 +38,7 @@
 <% end %></td>
 <td style="vertical-align: top;"><h4>Friends Invited: </h4>
   <div class="vertical-friend-menu">
-    <% @outing.users.each do |user| %>
+    <% @outing_attendees.each do |user| %>
       <%= link_to user.username %>
     <% end %>
   </div><br>

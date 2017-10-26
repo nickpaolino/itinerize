@@ -80,6 +80,8 @@ class OutingsController < ApplicationController
 
     @user_suggestions = @outing.suggestions.select{|suggestion| suggestion.user.id == session[:user_id] }
 
+    @outing_attendees = @outing.users.reject {|user| user.id == current_user.id }
+
     @suggestion = @outing.suggestions.build
   end
 
