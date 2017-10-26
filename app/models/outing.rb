@@ -6,14 +6,16 @@ class Outing < ApplicationRecord
   validates :name, presence: true
   validates :voting_deadline, presence: true
   validates :event_start, presence: true
-  
+
   def timer_formatted
     time = time_left.abs
+    days = time / 86400
+    time = time - (days * 86400)
     hours = time / 3600
     time = time - (hours * 3600)
     minutes = time / 60
     time =- time - (minutes * 60)
-    "#{hours} hours #{minutes} minutes"
+    "#{days} days #{hours} hours #{minutes} minutes"
   end
 
   def voting_over?
