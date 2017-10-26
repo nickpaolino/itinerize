@@ -14,6 +14,10 @@ class UsersController < ApplicationController
   def show # This is the first page a logged in user sees
     # It's essentially the user profile page
     require_logged_in # Requires that the users logged in
+
+    # Gets the list of outings by those most recently created
+    @user_finished_outings = @user.outings.select {|outing| outing.voting_over?}.sort_by {|outing| outing.created_at }.reverse
+    @user_active_outings = @user.outings.select {|outing| !outing.voting_over?}.sort_by {|outing| outing.created_at }.reverse
   end
 
   private

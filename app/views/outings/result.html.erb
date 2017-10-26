@@ -1,12 +1,24 @@
-<h4>Results are in for <%= @outing.name %>!</h4>
+<div class="navbar">
+  <a href="/">Home</a>
+  <a href="/outings">Active Outings</a>
+  <a href="/outings/new">New Outing</a>
+  <a href="/logout">Log Out</a>
+</div>
+
+<br><br>
+
+<div class="main">
+<h3>Results are in for <big><%= @outing.name %></big>!</h3>
+<h3>Looks like everyone's going to <big><%= @top_suggestions.first.name %></big></h3><br>
+<table align="center">
+  <tr>
 <% @top_suggestions.each_with_index do |suggestion, index| %>
-  <h4><%="#{index + 1}. #{suggestion.name}" %><br></h4>
+  <td><h4><%="#{index + 1}. #{suggestion.name}" %></h4>
   <p><%="Number of Likes: #{suggestion.likes.count}" %></p>
   <% @likes_hash[suggestion.name].each do |name, number_of_likes| %>
     <p><%= name %>: <%= number_of_likes %></p>
-  <% end %><br><br>
+  <% end %></td><br>
 <% end %>
-
-<br>
-
-<%= link_to "Your Profile", user_path(@user) %>
+  </tr>
+</table>
+</div>

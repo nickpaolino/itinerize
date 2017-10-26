@@ -1,3 +1,13 @@
+<div class="navbar">
+  <a href="/">Home</a>
+  <a href="/outings">Active Outings</a>
+  <a href="/outings/new">New Outing</a>
+  <a href="/logout">Log Out</a>
+</div>
+
+<br><br>
+
+<div class="main">
 <h1><%= @outing.name %></h1>
 <h4>Event Start: <%= @outing.event_start.strftime("%B %d, %Y at %I:%M%p") %></h4>
 <h4>Time Left to Vote: <%= @outing.timer_formatted %></h4>
@@ -20,5 +30,4 @@
     <% end %>
 </div>
 <%= link_to "Suggest More Places", suggest_path(@outing) %>
-<br>
-<%= link_to "Your Profile", user_path(@user) %>
+</div>

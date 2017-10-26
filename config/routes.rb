@@ -21,4 +21,5 @@ Rails.application.routes.draw do
 
   get '/outings/:id/result', to:'outings#result', as: 'result'
 
+  get '/logout', to: 'sessions#destroy'
 end

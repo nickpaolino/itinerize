@@ -1,3 +1,13 @@
+<div class="navbar">
+  <a href="/">Home</a>
+  <a href="/outings">Active Outings</a>
+  <a href="/outings/new">New Outing</a>
+  <a href="/logout">Log Out</a>
+</div>
+
+<br><br>
+
+<div class="main">
 <h1><%= @outing.name %></h1>
 <br>
 <div>
@@ -35,7 +45,4 @@
 <%= form_tag submit_suggestions_path do %>
     <%= submit_tag "Submit Suggestions" %>
 <% end %>
-
-<br>
-
-<%= link_to "Your Profile", user_path(@user) %>
+</div>

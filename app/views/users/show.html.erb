@@ -1,19 +1,38 @@
-<h1>Hi, <%= @user.username.titlecase %></h1>
-
-<%= link_to "Create New Outing", new_outing_path %>
+<div class="navbar">
+  <a href="/">Home</a>
+  <a href="/outings">Active Outings</a>
+  <a href="/outings/new">New Outing</a>
+  <a href="/logout">Log Out</a>
+</div>
 
 <br><br>
 
-<h2>Your Outings</h2>
+<div class="main" align="center">
 
-<div class="vertical-menu">
-  <% @user.outings.each do |outing| %>
-    <%= link_to outing.name, outing_path(outing) %>
-  <% end %>
-</div>
+<h1>Hi, <%= @user.username.titlecase %></h1>
 
 <br>
+
+<table>
+  <tr>
+      <td><h2>Your Active Outings</h2>
+      <div class="vertical-menu">
+        <% @user_active_outings.each do |outing| %>
+          <%= link_to outing.name, outing_path(outing) %>
+        <% end %>
+      </div></td>
+  <br>
+      <td><h2>Your Completed Outings</h2>
+      <div class="vertical-menu">
+        <% @user_finished_outings.each do |outing| %>
+          <%= link_to outing.name, outing_path(outing) %>
+        <% end %>
+      </div></td>
+  </tr>
+</table>
 
 <%= form_tag ({controller: 'sessions', action: 'destroy', method: 'post'}) do %>
   <input type=submit value='logout'>
 <% end %>
+
+</div>

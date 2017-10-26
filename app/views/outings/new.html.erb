@@ -1,5 +1,14 @@
-<h4>Create a New Outing</h4>
+<div class="navbar">
+  <a href="/">Home</a>
+  <a href="/outings">Active Outings</a>
+  <a href="/outings/new">New Outing</a>
+  <a href="/logout">Log Out</a>
+</div>
 
+<br><br>
+
+<div class="main">
+<h4>Create a New Outing</h4>
 <%= form_for @outing do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %><br><br>
@@ -11,3 +20,4 @@
 <% end %>
 <br><br>
 <%= link_to "Your Profile", user_path(@user) %>
+</div>

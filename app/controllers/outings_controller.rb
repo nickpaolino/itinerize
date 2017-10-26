@@ -53,10 +53,12 @@ class OutingsController < ApplicationController
 
   def send_invites
     # Assigns the users chosen to the outing
-    users = params[:outing][:user_ids].map {|user_id| User.find(user_id)}
+    if !params[:outing].nil?
+      users = params[:outing][:user_ids].map {|user_id| User.find(user_id)}
 
-    users.each do |user|
-      current_outing.users << user
+      users.each do |user|
+        current_outing.users << user
+      end
     end
 
     current_outing.save
@@ -157,6 +159,10 @@ class OutingsController < ApplicationController
   end
 
   def current_user
+    # If there's no user currently logged in, this redirects to the login
+    return redirect_to root_path if !session[:user_id]
+
+    # Finds user's id in the session
     User.find(session[:user_id])
   end
 
