@@ -18,6 +18,8 @@ module Itinerize
     
     # loads videos
     config.assets.paths << "#{Rails.root}/app/assets/videos"    
+
+    config.exceptions_app = self.routes    
   
   end
 end
