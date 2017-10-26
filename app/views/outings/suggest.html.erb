@@ -16,8 +16,6 @@
     <% end %>
 </div>
 
-<br>
-
 <%= form_for @suggestion, url: post_suggestion_path , method: :post do |f| %>
     <%= f.label :name %>
     <%= f.text_field :name %>
