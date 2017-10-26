@@ -74,6 +74,9 @@ GEM
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
+    jquery-turbolinks (2.1.0)
+      railties (>= 3.1.0)
+      turbolinks
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -83,6 +86,8 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.6)
       mime-types (>= 1.16, < 4)
+    materialize-sass (0.100.2)
+      sass (~> 3.3)
     method_source (0.9.0)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
@@ -188,7 +193,9 @@ DEPENDENCIES
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
   jbuilder (~> 2.5)
+  jquery-turbolinks
   listen (>= 3.0.5, < 3.2)
+  materialize-sass
   pg (~> 0.18)
   pry
   puma (~> 3.7)
