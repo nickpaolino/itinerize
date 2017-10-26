@@ -1,18 +1,30 @@
-<h1>revelize</h1>
 
-<%= form_for @user, url: login_path, method: :post do |f| %>
-  <%= f.label :username %>
-  <%= f.text_field :username %>
 
-  <%= f.label :password %>
-  <%= f.password_field :password %>
 
-  <%= f.submit "log in" %>
-  Or <%= link_to(controller: 'users', action: 'new') { 'sign up' } %>
-<% end %>
+<div class="center">
+  <h1 color="white">revelize</h1>
+  
+  <%= form_for @user, url: login_path, method: :post do |f| %>
+    <%= f.label :username %>
+    <%= f.text_field :username %>
+
+    <br><br>
+
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+
+    <br><br>
+
+    <%= f.submit "log in" %>
+    <br><br>
+    
+    <button>
+      <%= link_to(controller: 'users', action: 'new') { 'sign up' } %>
+    </button>
+  <% end %>
+
+</div>
 
 <video autoplay loop id="video-background" muted plays-inline>
   <source src="http://dl.dropboxusercontent.com/s/zlyj8x56bpoqccs/revelize_vid.mp4?dl=0" type="video/mp4">
 </video>
-
-

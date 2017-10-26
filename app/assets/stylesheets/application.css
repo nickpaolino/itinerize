@@ -68,3 +68,8 @@ td, th {
     text-align: left;
     padding: 2px;
 }
+.center {
+    margin: auto;
+    padding: 100px;
+    text-align: center;
+}
