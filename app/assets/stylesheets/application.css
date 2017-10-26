@@ -93,8 +93,11 @@ td, th {
 }
 
 .login-signup-box {
-td.description {
-  vertical-align: top;
+    margin: auto;
+    padding: auto;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
 }
 
 .center {
