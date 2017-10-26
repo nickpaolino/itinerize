@@ -14,7 +14,7 @@
 <h4>Create a New Outing</h4>
 <%= form_for @outing do |f| %>
   <%= f.label :name %>
-  <%= f.text_field :name %><br><br>
+  <%= f.text_field :name, placeholder: "Matz's Birthday" %><br><br>
   <%= f.label :event_start %>
   <%= f.datetime_field :event_start %><br><br>
   <%= f.label :voting_deadline %>
