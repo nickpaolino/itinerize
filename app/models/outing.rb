@@ -22,6 +22,14 @@ class Outing < ApplicationRecord
     time_left <= 0
   end
 
+  def top_suggestions
+    self.suggestions.sort_by {|suggestion| suggestion.likes.count}.reverse[0..2]
+  end
+
+  def top_suggestion
+    top_suggestions.first
+  end
+
   private
 
   def time_left

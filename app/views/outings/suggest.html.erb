@@ -1,6 +1,7 @@
 <div class="navbar">
   <a href="/outings">Your Outings</a>
   <a href="/outings/new">New Outing</a>
+  <a href="/users/<%= session[:user_id] %>/suggestions">Your Suggestions</a>
   <a href="/logout">Log Out</a>
   <div class="right">
     <a href="/">revelize</a>
@@ -39,7 +40,7 @@
 <td style="vertical-align: top;"><h4>Friends Invited: </h4>
   <div class="vertical-friend-menu">
     <% @outing_attendees.each do |user| %>
-      <%= link_to user.username %>
+      <%= link_to user.username, user_suggestions_path(user) %>
     <% end %>
   </div><br>
   <%= link_to "Invite", invite_path(@outing), class: "link" %></td>

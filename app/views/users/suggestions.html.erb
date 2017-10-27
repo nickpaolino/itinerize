@@ -1,0 +1,38 @@
+<div class="navbar">
+  <a href="/outings">Your Outings</a>
+  <a href="/outings/new">New Outing</a>
+  <a href="/users/<%= session[:user_id] %>/suggestions">Your Suggestions</a>
+  <a href="/logout">Log Out</a>
+  <div class="right">
+    <a href="/">revelize</a>
+  </div>
+</div>
+
+<br><br>
+
+<div class="main" align="center">
+
+<% if !@empty_suggestions %>
+  <h1><%= @pronoun %> Suggestions</h1>
+  <p><%= @pronoun %> most popular suggestion is <big><%= @user.most_popular_suggestion %></big></p>
+
+  <table>
+    <tr>
+        <td><h2><%= @pronoun %> Suggestions</h2>
+        <div class="vertical-outing-menu">
+          <% @user_suggestions.each do |suggestion| %>
+            <%= link_to suggestion %>
+          <% end %>
+        </div></td>
+    <br>
+        <td><h2><%= @pronoun %> Winning Suggestions</h2>
+        <div class="vertical-outing-menu">
+          <% @user.winning_suggestions.each do |suggestion| %>
+            <%= link_to suggestion.name %>
+          <% end %>
+        </div></td>
+    </tr>
+  </table>
+<% else %>
+  <h2>There are no suggestions yet!</h2>
+<% end %>

@@ -20,6 +20,22 @@ class UsersController < ApplicationController
     @user_active_outings = @user.outings.select {|outing| !outing.voting_over?}.sort_by {|outing| outing.created_at }.reverse
   end
 
+  def suggestions
+    @user = User.find(params[:id])
+
+    @current_user = User.find(session[:user_id])
+
+    @user_suggestions = @user.suggestions.map {|n| n.name}.uniq
+
+    if @user.id == @current_user.id
+      @pronoun = "Your"
+    else
+      @pronoun = "#{@user.username}'s".capitalize
+    end
+
+    @empty_suggestions = @user.suggestions.empty?
+  end
+
   private
 
   def user_params
