@@ -242,3 +242,6 @@ button a {
 }
 
 .link:hover {background-color: #5b5b5e}
+
+table.fixed { table-layout:fixed; }
+table.fixed td { overflow: hidden; }

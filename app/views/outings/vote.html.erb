@@ -15,8 +15,8 @@
 <h4>Time Left to Vote: <%= @outing.timer_formatted %></h4>
 <h4>Your Remaining Votes: <%= @remaining_likes %></h4>
 <div>
-  <table>
-    <tr>
+  <table class="fixed" style="width:100%">
+    <tr><td>
     <% @suggestions.each do |suggestion| %>
         <%= suggestion.name %><br>
         <%= suggestion.address %><br>
@@ -30,8 +30,18 @@
         <% end %>
         <p>Total Likes: <%= suggestion.likes.count %></p>
         <p>Your Likes: <%= @user_likes.select{|like| like.suggestion == suggestion}.count %></p>
-        <br></td>
+        <br>
+    <% end %></td>
+    <td valign="top">
+    <% if !@top_suggestions.empty? %>
+        Looks like <big><big><%= @top_suggestions.first.name %></big></big> is in the lead!
+        <% @top_suggestions.each_with_index do |suggestion, index| %>
+          <h4><big><%="#{index + 1}. #{suggestion.name}" %></big></h4>
+          <p><%="Number of Likes: "%><big><%="#{suggestion.likes.count}" %></big></p>
+        <% end %>
+    <% else %>
     <% end %>
+    </td>
     </tr>
   </table>
 </div>

@@ -111,6 +111,8 @@ class OutingsController < ApplicationController
     @outing = current_outing
     @suggestions = @outing.suggestions
 
+    @top_suggestions = @suggestions.sort_by {|suggestion| suggestion.likes.count}.reverse[0..2]
+
     # Sets the user's likes
     @user_likes = Like.all.select {|like| like.user.id == session[:user_id]}
 
