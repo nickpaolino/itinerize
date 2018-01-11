@@ -18,7 +18,7 @@ There are four stages of the application's process. The first is where users
 create an event and invite friends. The second stage requires users to add
 potential venues for the event. The third has users vote on which venue is most
 suitable for their plans and the fourth, after the deadline is up, displays the
-venues the received the most votes. At any stage in the process a user can
+venues that received the most votes. At any stage in the process a user can
 switch between the first, second, and third stage. When the time deadline is up,
 however, a user can no longer create venues, vote, or invite friends and remains
 fixed at the last stage.
